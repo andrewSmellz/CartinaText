@@ -56,3 +56,4 @@ for instruction in program_lines:
         case "read":
             x=float(input())
             stack.push(x)
+            
