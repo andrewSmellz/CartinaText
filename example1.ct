@@ -1,0 +1,9 @@
+print hello world
+read
+push 5
+push 5
+add
+push 10
+push 5
+sub
+display
