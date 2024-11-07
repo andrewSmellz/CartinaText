@@ -1,4 +1,5 @@
 import sys
+import os
 
 class stack:
     def __init__(self):
@@ -16,44 +17,108 @@ class stack:
             return self.items[-1]
         
     def is_empty(self):
-        return len(self.items)==0
+        return len(self.items) == 0
     
     def display(self):
         print(self.items)
 
-ct_filepath=sys.argv[1]
-program_lines=[]
-
+ct_filepath = sys.argv[1]
+program_lines = []
 stack = stack()
+operation_count = 0
+all_operations = ["push", "pop", "add", "sub", "top", "display", "print", "read", "==", ">", ">=", "<", "<=", "eqJump", "halt"]
+operations = []
+labels = {}  
+lines = []
 
-with open(ct_filepath,"r") as ct_program:
-    for line in ct_program.readlines():
+
+with open(ct_filepath, "r") as ct_program:
+    for i, line in enumerate(ct_program.readlines()):
         program_lines.append(line.strip())
+        tokens = line.strip().split()
+        if tokens:
+            op = tokens[0]
+            if op in all_operations:
+                operations.append(op)
+                lines.append(i)  
+            elif op[-1] == ":":
+                labels[op[:-1]] = i  
+                lines.append(i)  
 
-for instruction in program_lines:
-    tokens=(instruction.split())
-    operation = tokens[0]
-
-    match(operation):
-        case "push":
-            stack.push(float(tokens[1]))
-        case "pop":
-            stack.pop()
-        case "add":
-            a=stack.pop()
-            b=stack.pop()
-            stack.push(a+b)
-        case "sub":
-            a=stack.pop()
-            b=stack.pop()
-            stack.push(b-a)
-        case "top":
-            stack.top()
-        case "display":
-            stack.display()
-        case "print":
-            print(*tokens[1:])
-        case "read":
-            x=float(input())
-            stack.push(x)
-            
+i = 0  
+while i < len(program_lines):
+    line=program_lines[i].split()
+    if line and line[0]=="~":
+        i+=1
+        continue
+    tokens = program_lines[i].split()
+    try:
+        operation = tokens[0]
+        match(operation):
+            case "push":
+                stack.push(float(tokens[1]))
+            case "pop":
+                stack.pop()
+            case "add":
+                a = stack.pop()
+                b = stack.pop()
+                stack.push(a + b)
+            case "sub":
+                a = stack.pop()
+                b = stack.pop()
+                stack.push(b - a)
+            case "top":
+                stack.top()
+            case "display":
+                stack.display()
+            case "print":
+                print(*tokens[1:])
+            case "read":
+                x = float(input())
+                stack.push(x)
+            case "==":
+                a = stack.pop()
+                b = stack.pop()
+                if a == b:
+                    stack.push(1)
+                else:
+                    stack.push(0)
+            case ">":
+                a = stack.pop()
+                b = stack.pop()
+                if a > b:
+                    stack.push(1)
+                else:
+                    stack.push(0)
+            case "<":
+                a = stack.pop()
+                b = stack.pop()
+                if a < b:
+                    stack.push(1)
+                else:
+                    stack.push(0)
+            case ">=":
+                a = stack.pop()
+                b = stack.pop()
+                if a >= b:
+                    stack.push(1)
+                else:
+                    stack.push(0)
+            case "<=":
+                a = stack.pop()
+                b = stack.pop()
+                if a <= b:
+                    stack.push(1)
+                else:
+                    stack.push(0)
+            case "eqJump":
+                if stack.top() == 1:
+                    label = tokens[1]
+                    if label in labels:
+                        i = labels[label] 
+                        continue  
+            case "halt":
+                break
+        i += 1  
+    except:
+        i += 1  
