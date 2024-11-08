@@ -21,7 +21,7 @@ class stack:
     def display(self):
         print(self.items)
 
-ct_filepath = f"CartinaText examples/{sys.argv[1]}" 
+ct_filepath = sys.argv[1]
 
 program_lines = []
 stack = stack()
