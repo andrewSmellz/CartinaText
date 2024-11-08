@@ -26,11 +26,10 @@ ct_filepath = sys.argv[1]
 program_lines = []
 stack = stack()
 operation_count = 0
-all_operations = ["push", "pop", "add", "sub", "top", "display", "print", "read", "==", ">", ">=", "<", "<=", "eqJump", "halt"]
+all_operations = ["push", "pop", "add", "sub", "mul", "div", "dupe", "swap", "top", "display", "print", "read", "==", ">", ">=", "<", "<=", "eqJump", "halt"]
 operations = []
 labels = {}  
 lines = []
-
 
 with open(ct_filepath, "r") as ct_program:
     for i, line in enumerate(ct_program.readlines()):
@@ -47,9 +46,9 @@ with open(ct_filepath, "r") as ct_program:
 
 i = 0  
 while i < len(program_lines):
-    line=program_lines[i].split()
-    if line and line[0]=="~":
-        i+=1
+    line = program_lines[i].split()
+    if line and line[0] == "~":
+        i += 1
         continue
     tokens = program_lines[i].split()
     try:
@@ -67,12 +66,34 @@ while i < len(program_lines):
                 a = stack.pop()
                 b = stack.pop()
                 stack.push(b - a)
+            case "mul":
+                a = stack.pop()
+                b = stack.pop()
+                stack.push(a * b)
+            case "div":
+                a = stack.pop()
+                b = stack.pop()
+                if a != 0:
+                    stack.push(b / a)
+                else:
+                    print("Error: Division by zero")
+                    stack.push(0)
+            case "dupe":
+                top = stack.top()
+                stack.push(top)
+            case "swap":
+                a = stack.pop()
+                b = stack.pop()
+                stack.push(a)
+                stack.push(b)
             case "top":
-                stack.top()
+                print(stack.top())
             case "display":
                 stack.display()
             case "print":
-                print(*tokens[1:])
+                message = " ".join(tokens[1:])
+                message = message[1:-1]
+                print(message)
             case "read":
                 x = float(input())
                 stack.push(x)
@@ -121,4 +142,4 @@ while i < len(program_lines):
                 break
         i += 1  
     except:
-        i += 1  
+        i += 1

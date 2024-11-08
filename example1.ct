@@ -7,9 +7,9 @@ pop
 
 
 ~take user inputs for two numbers then subtract them, print the difference, then pop it
-print enter number to subtract from
+print "enter number to subtract from"
 read
-print enter number to subtract
+print "enter number to subtract"
 read
 sub
 display
@@ -18,17 +18,20 @@ pop
 
 ~prompt user to enter the number 5 depending on input flow changes
 push 5
-print enter the number 5
+print "enter the number 5"
 read
 ==
 ~if they dont input 5 they are called stupid
 eqJump SMART
-print you are stupid
+print "you are stupid"
 halt
 
 ~if they input 5 they are praised
 SMART:
-print you followed the instructions
-halt
+print "you followed the instructions"
 
+push 5
+push 5
+mul
+top
 

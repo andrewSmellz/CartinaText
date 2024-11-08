@@ -34,8 +34,8 @@ currently no inline comments
     print all values on stack to terminal
     `display`
 * **print**
-    print a string literal to the terminal
-    `print hello world`
+    print a string literal to the terminal      string should be elcosed in quotes
+    `print "hello world"`
 * **read**
     read a user input from the terminal
     `read`
