@@ -111,15 +111,15 @@ while i < len(program_lines):
                 else:
                     stack.push(0)
             case ">":
-                a = stack.pop()
-                b = stack.pop()
+                a = float(stack.pop())
+                b = float(stack.pop())
                 if a > b:
                     stack.push(1)
                 else:
                     stack.push(0)
             case "<":
-                a = stack.pop()
-                b = stack.pop()
+                a = float(stack.pop())
+                b = float(stack.pop())
                 if a < b:
                     stack.push(1)
                 else:
@@ -132,20 +132,20 @@ while i < len(program_lines):
                 else:
                     stack.push(0)
             case "<=":
-                a = stack.pop()
-                b = stack.pop()
+                a = float(stack.pop())
+                b = float(stack.pop())
                 if a <= b:
                     stack.push(1)
                 else:
                     stack.push(0)
             case "eqJump":
-                if int(stack.top()) == 1:
+                if float(stack.pop()) == 1:
                     label = tokens.pop(0)
                     if label in labels:
                         i = labels[label]  
                         continue
             case "neqJump":
-                if stack.top() == 0:
+                if float(stack.pop()) == 0:
                     label = tokens.pop(0)
                     if label in labels:
                         i = labels[label]
@@ -159,7 +159,7 @@ while i < len(program_lines):
             case "getVar":
                 print(variables[tokens.pop(0)])
             case "pushVar":
-                stack.push(variables[stack.pop()])
+                stack.push(variables[tokens.pop(0)])
             case "arr":
                 arrays[tokens.pop(0)]=[]
             case "arr.append":
