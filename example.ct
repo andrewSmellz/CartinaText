@@ -1,0 +1,70 @@
+~ Stack operations
+push 10
+push 20
+add
+display
+
+push 10
+push 20
+sub
+display
+
+push 10
+push 20
+mul
+display
+
+push 10
+push 20
+div
+display
+
+pop
+dupe
+display
+pop
+push 5
+swap
+display
+
+
+~ Comparison operations
+push 5
+push 10
+==
+top
+
+push 15
+push 10
+>
+display
+
+print "enter a number"
+read
+top
+
+~ Variable and Array operations
+var x
+push 50
+setVar x
+getVar x
+
+arr numbers
+arr.append numbers 1
+arr.append numbers 2
+arr.append numbers 3
+getArr numbers
+
+~ String operations
+string greeting "Hello from CartinaText"
+getStr greeting
+
+
+
+~ Flow control
+push 1
+eqJump END
+print "This will not print"
+END:
+print "End of program"
+halt
