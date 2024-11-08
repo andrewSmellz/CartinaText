@@ -1,37 +1,11 @@
--push two numbers to the stack, add them, print the sum, then pop it
-push 5
-push 10
-add
-display
-pop
+var x
+push 10 setVar x
 
+var y
+push 9 setVar y
 
-~take user inputs for two numbers then subtract them, print the difference, then pop it
-print "enter number to subtract from"
-read
-print "enter number to subtract"
-read
-sub
-display
-pop
+var z
+pushVar x pushVar y add
+setVar z
 
-
-~prompt user to enter the number 5 depending on input flow changes
-push 5
-print "enter the number 5"
-read
-==
-~if they dont input 5 they are called stupid
-eqJump SMART
-print "you are stupid"
-halt
-
-~if they input 5 they are praised
-SMART:
-print "you followed the instructions"
-
-push 5
-push 5
-mul
-top
-
+getVar z
