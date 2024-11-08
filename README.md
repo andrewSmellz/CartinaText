@@ -3,6 +3,8 @@
 ### a turing complete stack based programming language
 **file extension is .ct**
 
+**to execute code run the following in terminal**
+`python cartina.py example.ct`    replace example.ct with name of CartinaText program you are interpreting
 
 currently no support for multiple operations in 1 line
 ie `print pop` will not pop a value and will instead print "pop"
