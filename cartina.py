@@ -27,6 +27,7 @@ program_lines = []
 stack = stack()
 labels = {}  
 variables = {}
+arrays = {}
 i = 0
 
 # Read and parse the program lines
@@ -138,10 +139,10 @@ while i < len(program_lines):
                 else:
                     stack.push(0)
             case "eqJump":
-                if stack.top() == 1:
+                if int(stack.top()) == 1:
                     label = tokens.pop(0)
                     if label in labels:
-                        i = labels[label]
+                        i = labels[label]  
                         continue
             case "neqJump":
                 if stack.top() == 0:
@@ -158,5 +159,37 @@ while i < len(program_lines):
             case "getVar":
                 print(variables[tokens.pop(0)])
             case "pushVar":
-                stack.push(variables[tokens.pop(0)])
-    i += 1
+                stack.push(variables[stack.pop()])
+            case "arr":
+                arrays[tokens.pop(0)]=[]
+            case "arr.append":
+                arr=tokens.pop(0)
+                arrays[arr].append(tokens.pop(0))
+            case "getArr":
+                arr=tokens.pop(0)
+                z=0
+                for z in range(len(arrays[arr])):
+                    print(arrays[arr][z], end=" ")
+                    z+=1
+                print()
+            case "string":
+                arr=tokens.pop(0)
+                message = []
+                running=True
+                while running:
+                    if tokens[0].startswith('"'):
+                        tokens[0]=tokens[0][1:]
+                    if tokens[0].endswith('"'):
+                        tokens[0]=tokens[0][:-1]
+                        running=False
+                    message.append(tokens.pop(0))
+                arrays[arr]=[" ".join(message)]
+            case "getStr":
+                arr=tokens.pop(0)
+                z=0
+                for z in range(len(arrays[arr])):
+                    print(arrays[arr][z], end="")
+                    z+=1
+                print()
+            
+    i += 1  
